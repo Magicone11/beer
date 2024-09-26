@@ -33,18 +33,18 @@
 
         .espuma {
             position: absolute;
-            top: -60px; /* Altura da espuma aumentada */
+            top: 0; /* Posicionada no topo da tela */
             width: 100%;
-            height: 60px; /* Aumentar altura da espuma */
+            height: 120px; /* Espuma maior para simular transbordamento */
             background: #ffffff;
-            border-radius: 50%;
+            border-radius: 0 0 50% 50%; /* Bordas arredondadas apenas na parte de baixo */
             box-shadow: 0px -10px 20px rgba(0, 0, 0, 0.1);
             z-index: 2;
-            animation: foamMove 2s infinite ease-in-out;
+            animation: foamMove 5s infinite ease-in-out;
         }
 
         #denkerText {
-            font-size: 4em; /* Tamanho do texto ajustado para celular */
+            font-size: 4em;
             font-family: Arial, sans-serif;
             font-weight: bold;
             color: red;
@@ -56,7 +56,7 @@
         }
 
         #signature {
-            font-size: 1.5em; /* Tamanho menor para a assinatura */
+            font-size: 1.5em;
             color: black;
             display: none;
             z-index: 4;
@@ -71,28 +71,32 @@
 
         @keyframes beerWave {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); } /* Maior movimento do chopp */
+            50% { transform: translateY(-10px); } /* Movimento menor para celular */
             100% { transform: translateY(0px); }
         }
 
-        /* Animação para o movimento da cerveja */
-        .chopp {
-            animation: beerWave 1.5s infinite ease-in-out;
+        /* Animação da espuma descendo */
+        @keyframes foamOverflow {
+            0% { height: 120px; }
+            100% { height: 180px; } /* Espuma escorrendo gradualmente */
         }
 
-        /* Animação para a espuma se movendo */
+        /* Animação para o movimento da espuma */
         @keyframes foamMove {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(5px); }
             100% { transform: translateY(0px); }
         }
 
-        /* Animação para a espuma descer sobre o chopp */
-        @keyframes foamOverflow {
-            0% { top: -60px; }
-            100% { top: 0px; }
+        /* Ajustes para visualização em dispositivos móveis */
+        @media (max-width: 600px) {
+            #denkerText {
+                font-size: 2.5em; /* Tamanho ajustado para celulares */
+            }
+            #signature {
+                font-size: 1.2em; /* Assinatura ajustada */
+            }
         }
-
     </style>
 </head>
 <body>
