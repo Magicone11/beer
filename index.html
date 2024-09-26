@@ -44,15 +44,24 @@
         }
 
         #denkerText {
-            font-size: 6em;
+            font-size: 4em; /* Tamanho do texto ajustado para celular */
             font-family: Arial, sans-serif;
             font-weight: bold;
             color: red;
-            text-shadow: 4px 4px 10px black;
+            text-shadow: 4px 4px 10px black, 6px 6px 15px rgba(0, 0, 0, 0.5); /* Efeito 3D */
             display: none;
             z-index: 3;
             text-align: center;
             animation: textFadeIn 2s forwards;
+        }
+
+        #signature {
+            font-size: 1.5em; /* Tamanho menor para a assinatura */
+            color: black;
+            display: none;
+            z-index: 4;
+            text-align: center;
+            margin-top: 10px;
         }
 
         @keyframes textFadeIn {
@@ -92,17 +101,26 @@
         <div class="espuma" id="espuma"></div>
     </div>
     <div id="denkerText">Denker the Best</div>
+    <div id="signature">World Champion</div>
+
+    <!-- Som de cerveja sendo servida -->
+    <audio id="beerSound" src="https://www.soundjay.com/drinks/sounds/beer-pour-1.mp3" preload="auto"></audio>
 
     <script>
         const chopp = document.getElementById('chopp');
         const espuma = document.getElementById('espuma');
         const denkerText = document.getElementById('denkerText');
+        const signature = document.getElementById('signature');
+        const beerSound = document.getElementById('beerSound');
 
         let fillLevel = 0;
         const maxFill = 100; // Nível máximo de preenchimento em porcentagem
 
         // Função que enche a tela de chopp
         function fillChopp() {
+            // Toca o som de cerveja sendo servida
+            beerSound.play();
+
             const fillInterval = setInterval(() => {
                 fillLevel += 1;
                 chopp.style.height = fillLevel + 'vh'; // Preenche a altura da tela
@@ -118,9 +136,10 @@
             }, 50); // Intervalo de 50ms para aumentar gradativamente
         }
 
-        // Função que exibe o texto "Denker the Best"
+        // Função que exibe o texto "Denker the Best" e a assinatura
         function showDenkerText() {
-            denkerText.style.display = 'block'; // Exibe o texto
+            denkerText.style.display = 'block'; // Exibe o texto "Denker the Best"
+            signature.style.display = 'block'; // Exibe a assinatura "World Champion"
         }
 
         // Inicia o preenchimento de chopp ao carregar a página
