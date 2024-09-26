@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denker the Best</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .chopp {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: #f2a900; /* Cor da cerveja */
+            height: 0;
+            transition: height 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .espuma {
+            position: absolute;
+            top: -60px; /* Altura da espuma aumentada */
+            width: 100%;
+            height: 60px; /* Aumentar altura da espuma */
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0px -10px 20px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            animation: foamMove 2s infinite ease-in-out;
+        }
+
+        #denkerText {
+            font-size: 6em;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            color: red;
+            text-shadow: 4px 4px 10px black;
+            display: none;
+            z-index: 3;
+            text-align: center;
+            animation: textFadeIn 2s forwards;
+        }
+
+        @keyframes textFadeIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes beerWave {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); } /* Maior movimento do chopp */
+            100% { transform: translateY(0px); }
+        }
+
+        /* Animação para o movimento da cerveja */
+        .chopp {
+            animation: beerWave 1.5s infinite ease-in-out;
+        }
+
+        /* Animação para a espuma se movendo */
+        @keyframes foamMove {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Animação para a espuma descer sobre o chopp */
+        @keyframes foamOverflow {
+            0% { top: -60px; }
+            100% { top: 0px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="chopp" id="chopp">
+        <div class="espuma" id="espuma"></div>
+    </div>
+    <div id="denkerText">Denker the Best</div>
+
+    <script>
+        const chopp = document.getElementById('chopp');
+        const espuma = document.getElementById('espuma');
+        const denkerText = document.getElementById('denkerText');
+
+        let fillLevel = 0;
+        const maxFill = 100; // Nível máximo de preenchimento em porcentagem
+
+        // Função que enche a tela de chopp
+        function fillChopp() {
+            const fillInterval = setInterval(() => {
+                fillLevel += 1;
+                chopp.style.height = fillLevel + 'vh'; // Preenche a altura da tela
+
+                if (fillLevel >= 80) { // Espuma começa a descer sobre o chopp
+                    espuma.style.animation = 'foamOverflow 2s forwards';
+                }
+
+                if (fillLevel >= maxFill) {
+                    clearInterval(fillInterval);
+                    showDenkerText(); // Exibe o texto no final
+                }
+            }, 50); // Intervalo de 50ms para aumentar gradativamente
+        }
+
+        // Função que exibe o texto "Denker the Best"
+        function showDenkerText() {
+            denkerText.style.display = 'block'; // Exibe o texto
+        }
+
+        // Inicia o preenchimento de chopp ao carregar a página
+        window.onload = function() {
+            fillChopp();
+        }
+    </script>
+
+</body>
+</html>
